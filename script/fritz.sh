@@ -1,4 +1,4 @@
-
+#!/bin/bash
 # 1. Install bind9
 echo 'nameserver 192.169.122.1' > /etc/resolv.conf
 

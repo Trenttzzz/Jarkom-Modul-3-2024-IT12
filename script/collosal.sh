@@ -44,7 +44,12 @@ if [ -f /etc/nginx/sites-enabled/default ]; then
     rm /etc/nginx/sites-enabled/default
 fi
 
-#!/bin/bash
+# NOMOR 10
+# Membuat direktori untuk menyimpan file htpasswd
+mkdir -p /etc/nginx/supersecret
+
+# Membuat file htpasswd dengan username arminannie dan password jrkmit25
+htpasswd -cb /etc/nginx/supersecret/htpasswd arminannie jrkmit12
 
 # Konfigurasi Round Robin
 cp /etc/nginx/sites-available/default /etc/nginx/sites-available/round_robin
@@ -66,6 +71,8 @@ echo '
 
         location / {
             proxy_pass http://round-robin;
+            auth_basic "Restricted Content";
+            auth_basic_user_file /etc/nginx/supersecret/htpasswd;
         }
     }
 ' > /etc/nginx/sites-available/round_robin
@@ -90,6 +97,8 @@ echo '
 
         location / {
             proxy_pass http://weight_round-robin;
+            auth_basic "Restricted Content";
+            auth_basic_user_file /etc/nginx/supersecret/htpasswd;
         }
     }
 ' > /etc/nginx/sites-available/weight_round_robin
@@ -115,6 +124,8 @@ echo '
 
         location / {
             proxy_pass http://generic_hash;
+            auth_basic "Restricted Content";
+            auth_basic_user_file /etc/nginx/supersecret/htpasswd;
         }
     }
 ' > /etc/nginx/sites-available/generic_hash
@@ -140,6 +151,8 @@ echo '
 
         location / {
             proxy_pass http://ip_hash;
+            auth_basic "Restricted Content";
+            auth_basic_user_file /etc/nginx/supersecret/htpasswd;
         }
     }
 ' > /etc/nginx/sites-available/ip_hash
@@ -165,6 +178,8 @@ echo '
 
         location / {
             proxy_pass http://least_connection;
+            auth_basic "Restricted Content";
+            auth_basic_user_file /etc/nginx/supersecret/htpasswd;
         }
     }
 ' > /etc/nginx/sites-available/least_connection
