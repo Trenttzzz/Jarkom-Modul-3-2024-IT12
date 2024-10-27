@@ -663,3 +663,39 @@
 
     ![image](https://github.com/user-attachments/assets/5b826e6a-b19d-40d9-ad43-6bcb85db0cd7)
 
+
+  #### Nomor 11
+  > Lalu buat untuk setiap request yang mengandung /titan akan di proxy passing menuju halaman https://attackontitan.fandom.com/wiki/Attack_on_Titan_Wiki
+
+  - Menambahkan line berikut untuk setiap algoritma
+    ```
+    location /titan {
+            proxy_pass https://attackontitan.fandom.com/wiki/Attack_on_Titan_Wiki;
+        }
+    ```
+
+  - Tes dengan jalankan lagi `lynx http://192.239.3.2:1111/` di client
+
+    ![Screenshot 2024-10-27 022553](https://github.com/user-attachments/assets/b3ca127f-49ae-46c7-a435-26b0bb3b871e)
+
+
+    #### Nomor 12
+    > Selanjutnya Colossal ini hanya boleh diakses oleh client dengan IP [Prefix IP].1.77, [Prefix IP].1.88, [Prefix IP].2.144, dan [Prefix IP].2.156.
+
+    - Menambahkan line berikut untuk setiap algoritma
+      ```
+      location / {
+            allow 192.239.1.77;
+            allow 192.239.1.88;
+            allow 192.239.2.144;
+            allow 192.239.2.156;
+            deny all;
+      ```
+
+    -  Tes dengan jalankan lagi `lynx http://192.239.3.2:1111/` di kedua client
+
+      ![Screenshot 2024-10-27 040638](https://github.com/user-attachments/assets/7731fa0f-682a-42fa-b10b-d0fc9e14e1f6)
+
+      
+
+
