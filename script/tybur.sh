@@ -46,6 +46,12 @@ subnet 192.239.3.0 netmask 255.255.255.0 {
 subnet 192.239.4.0 netmask 255.255.255.0 {
 }
 
+host Zeke{
+    hardware ethernet fa:61:fb:1a:8d:5b;
+    fixed-address 192.239.1.77;
+}
+
+
 '
 echo "$subnet" > /etc/dhcp/dhcpd.conf
 

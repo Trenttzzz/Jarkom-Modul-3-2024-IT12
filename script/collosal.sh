@@ -70,9 +70,19 @@ echo '
         server_name _;
 
         location / {
+            allow 192.239.1.77;
+            allow 192.239.1.88;
+            allow 192.239.2.144;
+            allow 192.239.2.156;
+            deny all;
+
             proxy_pass http://round-robin;
             auth_basic "Restricted Content";
             auth_basic_user_file /etc/nginx/supersecret/htpasswd;
+        }
+
+        location /titan/ {
+            proxy_pass https://attackontitan.fandom.com/wiki/Attack_on_Titan_Wiki/;
         }
     }
 ' > /etc/nginx/sites-available/round_robin
@@ -96,9 +106,19 @@ echo '
         server_name _;
 
         location / {
+            allow 192.239.1.77;
+            allow 192.239.1.88;
+            allow 192.239.2.144;
+            allow 192.239.2.156;
+            deny all;
+
             proxy_pass http://weight_round-robin;
             auth_basic "Restricted Content";
             auth_basic_user_file /etc/nginx/supersecret/htpasswd;
+        }
+
+        location /titan/ {
+            proxy_pass https://attackontitan.fandom.com/wiki/Attack_on_Titan_Wiki/;
         }
     }
 ' > /etc/nginx/sites-available/weight_round_robin
@@ -123,9 +143,18 @@ echo '
         server_name _;
 
         location / {
+            allow 192.239.1.77;
+            allow 192.239.1.88;
+            allow 192.239.2.144;
+            allow 192.239.2.156;
+            deny all;
             proxy_pass http://generic_hash;
             auth_basic "Restricted Content";
             auth_basic_user_file /etc/nginx/supersecret/htpasswd;
+        }
+
+        location /titan/ {
+            proxy_pass https://attackontitan.fandom.com/wiki/Attack_on_Titan_Wiki/;
         }
     }
 ' > /etc/nginx/sites-available/generic_hash
@@ -150,9 +179,18 @@ echo '
         server_name _;
 
         location / {
+            allow 192.239.1.77;
+            allow 192.239.1.88;
+            allow 192.239.2.144;
+            allow 192.239.2.156;
+            deny all;
             proxy_pass http://ip_hash;
             auth_basic "Restricted Content";
             auth_basic_user_file /etc/nginx/supersecret/htpasswd;
+        }
+
+        location /titan/ {
+            proxy_pass https://attackontitan.fandom.com/wiki/Attack_on_Titan_Wiki/;
         }
     }
 ' > /etc/nginx/sites-available/ip_hash
@@ -177,9 +215,18 @@ echo '
         server_name _;
 
         location / {
+            allow 192.239.1.77;
+            allow 192.239.1.88;
+            allow 192.239.2.144;
+            allow 192.239.2.156;
+            deny all;
             proxy_pass http://least_connection;
             auth_basic "Restricted Content";
             auth_basic_user_file /etc/nginx/supersecret/htpasswd;
+        }
+
+        location /titan/ {
+            proxy_pass https://attackontitan.fandom.com/wiki/Attack_on_Titan_Wiki/;
         }
     }
 ' > /etc/nginx/sites-available/least_connection
