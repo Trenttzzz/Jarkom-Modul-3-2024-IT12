@@ -1,6 +1,6 @@
 #!/bin/bash
 # 1. Install bind9
-echo 'nameserver 192.169.122.1' > /etc/resolv.conf
+echo 'nameserver 192.168.122.1' > /etc/resolv.conf
 
 apt-get update
 apt-get install bind9 -y
