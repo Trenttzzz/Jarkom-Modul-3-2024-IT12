@@ -696,6 +696,62 @@
 
       ![Screenshot 2024-10-27 040638](https://github.com/user-attachments/assets/7731fa0f-682a-42fa-b10b-d0fc9e14e1f6)
 
-      
+#### Nomor 13
+> Karena mengetahui bahwa ada keturunan marley yang mewarisi kekuatan titan, Zeke pun berinisiatif untuk menyimpan data data penting di Warhammer, dan semua data tersebut harus dapat diakses oleh anak buah kesayangannya, Annie, Reiner, dan Berthold.  (13)
 
+- Membuat script untuk membuat database baru dengan nama `warhammer.sh` dan jalankan di warhammer (Database Server)
+    ```
+    #!/bin/bash
+
+    # Konfigurasi nameserver
+    echo nameserver 192.239.4.2 > /etc/resolv.conf
+
+    # Update package
+    apt-get update
+    apt-get install mariadb-server -y
+
+    service mysql start
+
+    maria_db='# This group is read both by the client and the server
+    # use it for options that affect everything
+    [client-server]
+
+    # Import all .cnf files from configuration directory
+    !includedir /etc/mysql/conf.d/
+    !includedir /etc/mysql/mariadb.conf.d/
+
+    # Options affecting the MySQL server (mysqld)
+    [mysqld]
+    skip-networking=0
+    '
+
+    echo "$maria_db" > /etc/mysql/my.cnf 
+
+    sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
+
+    service mysql restart
+    ```
+- Buat script untuk setting di laravel-php (Web Server)
+    ```
+    #!/bin/bash
+
+    # Konfigurasi nameserver
+    echo nameserver 192.239.4.2 > /etc/resolv.conf
+
+    # Update package
+    apt-get update
+    apt-get install mariadb-client -y
+    ```
+- Jalankan `mysql -u root -p` dan masukan password `it12` kemudian buat database baru dengan nama `db_it12`
+    ```
+    CREATE USER 'it12'@'%' IDENTIFIED BY 'it12';
+    CREATE USER 'it12'@'localhost' IDENTIFIED BY 'it12';
+    CREATE DATABASE db_it12;
+    GRANT ALL PRIVILEGES ON *.* TO 'it12'@'%';
+    GRANT ALL PRIVILEGES ON *.* TO 'it12'@'localhost';
+    FLUSH PRIVILEGES;
+    ```
+- Tes dengan ketik `mysql --host=192.239.3.3 --port=3306 --user=it12 --password=it12 db_it12 -e "SHOW DATABASES;"` di laravel-php (Web Server)
+
+    ![image](https://github.com/user-attachments/assets/7f16e605-0bbb-422d-a005-b5c7b97d4503)
 
